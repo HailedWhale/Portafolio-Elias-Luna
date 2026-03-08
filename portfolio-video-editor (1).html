@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Video Editor Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 60px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .skill-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .skill-card p {
+            opacity: 0.9;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .videos {
+            display: grid;
+            grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px;
+        }
+
+        .video-type {
+            display: grid;
+            grid-template-rows: auto;
+            gap: 5px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s, width 1s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateX(-60px);
+            width: 480px;
+        }
+
+        .portfolio-thumbnail {
+            width: 100%;
+            height: 360px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .portfolio-info {
+            padding: 25px;
+        }
+
+        .portfolio-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        #youtubeModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+        }
+
+        .contact-item h4 {
+            font-size: 1.2rem;
+        }
+
+        .contact-item p {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+
+            .contact-info {
+                gap: 30px;
+            }
+        }
+    </style>
+    <script>
+        let player;
+        let currentVideoId = null;
+        let youtubeApiLoaded = false;
+
+        function openModal(event, videoId) {
+            event.preventDefault();
+            document.getElementById('youtubeModal').style.display = 'flex';
+            loadYoutubePlayer(videoId);
+        }
+
+        function closeModal(event) {
+            if (event.target.classList.contains('modal')) {
+                document.getElementById('youtubeModal').style.display = 'none';
+                if (player && typeof player.stopVideo === 'function') {
+                    player.stopVideo();
+                }
+            }
+        }
+
+        function loadYoutubePlayer(videoId) {
+            // Cargar la API de YouTube solo si no está cargada
+            if (!youtubeApiLoaded) {
+                var tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            }
+            
+            // Si el videoId es diferente al actual, destruir el player anterior
+            if (player && currentVideoId !== videoId) {
+                player.destroy();
+                player = null;
+            }
+            
+            // Solo definir onYouTubeIframeAPIReady una vez
+            if (!youtubeApiLoaded) {
+                window.onYouTubeIframeAPIReady = function() {
+                    player = new YT.Player('youtube-player', {
+                        videoId: videoId,
+                        playerVars: {
+                            'playsinline': 1,
+                            'rel': 0
+                        },
+                        events: {
+                            'onReady': onPlayerReady
+                        }
+                    });
+                    youtubeApiLoaded = true;
+                };
+            } else if (!player) {
+                // Si la API ya está cargada pero no hay player, crearlo
+                player = new YT.Player('youtube-player', {
+                    videoId: videoId,
+                    playerVars: {
+                        'playsinline': 1,
+                        'rel': 0
+                    },
+                    events: {
+                        'onReady': onPlayerReady
+                    }
+                });
+            }
+            
+            currentVideoId = videoId;
+        }
+
+        function onPlayerReady(event) {
+            player.playVideo();
+        }
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">🎬 Elías Luna</a>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#habilidades">Habilidades</a></li>
+                    <li><a href="#portfolio">Portafolio</a></li>
+                    <li><a href="#sobre-mi">Sobre Mí</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <h1>Elías Luna</h1>
+            <p>Especialista en edición de video y editor principal de <a href="https://youtube.com/@triforceenigma" target="_blank">Triforce Enigma</a></p>
+            <a href="#portfolio" class="cta-button">Ver Mis Trabajos</a>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="habilidades" class="skills">
+        <div class="container">
+            <h2 class="section-title">Mis Habilidades</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🎬</div>
+                    <h3>Edición de Video</h3>
+                    <p>Edición de videos cortos y largos con efectos y transiciones de calidad</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📝</div>
+                    <h3>Subtítulos animados</h3>
+                    <p>Subtítulos dinámicos con efectos visuales para mejor retención de atención y comprensión del contenido</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎵</div>
+                    <h3>Audio & Música</h3>
+                    <p>Mezcla de audio, efecto de sonido y selección de música para videos impactantes</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📱</div>
+                    <h3>Reels & Shorts</h3>
+                    <p>Edición optimizada para Instagram Reels, TikTok y YouTube Shorts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Mi Portafolio</h2>
+            <div class="videos">
+                <div class="video-type">
+                    <h3>Videos 📹</h3>
+                    <p>Edición de videos para youtube</p>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">
+                            <div class="portfolio-thumbnail"><img src="https://img.youtube.com/vi/d2bGXaFrU5I/hqdefault.jpg" alt="📹"></div>
+                            <div class="portfolio-info">
+                                <h4>25 DETALLES de HOLLOW KNIGHT</h4>
+                                <a href="#" class="portfolio-link" onclick="openModal(event, 'd2bGXaFrU5I')">Ver Proyecto →</a>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-thumbnail"><img src="https://img.youtube.com/vi/N3N5npwHYB8/hqdefault.jpg" alt="📹"></div>
+                            <div class="portfolio-info">
+                                <h4>La Historia de Cammy White: De Luchadora a Leyenda en Street Fighter</h4>
+                                <a href="#" class="portfolio-link" onclick="openModal(event, 'N3N5npwHYB8')">Ver Proyecto →</a>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-thumbnail"><img src="https://img.youtube.com/vi/NhBaR4ilJO0/hqdefault.jpg" alt="📹"></div>
+                            <div class="portfolio-info">
+                                <h4>El verdadero GOTY. No durarás ni 5 minutos | Aristocunts</h4>
+                                <a href="#" class="portfolio-link" onclick="openModal(event, 'NhBaR4ilJO0')">Ver Proyecto →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-type">
+                    <h3>Reels & Shorts 📱</h3>
+                    <p>Edición optimizada para Instagram Reels, TikTok y YouTube Shorts</p>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">
+                            <div class="portfolio-thumbnail"><img src="https://img.youtube.com/vi/6Priiw4HJNA/hqdefault.jpg" alt="📱"></div>
+                            <div class="portfolio-info">
+                                <h4>Mañana Sale Silksong (Ahora sí en serio definitivo)</h4>
+                                <a href="#" class="portfolio-link" onclick="openModal(event, '6Priiw4HJNA')">Ver Proyecto →</a>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-thumbnail"><img src="https://img.youtube.com/vi/iL1JS_Y_xO8/hqdefault.jpg" alt="📱"></div>
+                            <div class="portfolio-info">
+                                <h4>5 Detalles de Resident Evil Outbreak</h4>
+                                <a href="#" class="portfolio-link" onclick="openModal(event, 'iL1JS_Y_xO8')">Ver Proyecto →</a>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-thumbnail"><img src="https://img.youtube.com/vi/wpe1nhKh-Vg/hqdefault.jpg" alt="📱"></div>
+                            <div class="portfolio-info">
+                                <h4>5 Detalles de Chun-Li</h4>
+                                <a href="#" class="portfolio-link" onclick="openModal(event, 'wpe1nhKh-Vg')">Ver Proyecto →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- YouTube Modal -->
+    <div class="modal" id="youtubeModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(event)">&times;</span>
+            <div id="youtube-player"></div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="sobre-mi" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Sobre Mí</h2>
+                    <p>Soy un editor de video autodidacta y he sido durante 3 años el editor principal del canal <a href="https://youtube.com/@triforceenigma" target="_blank">Triforce Enigma</a></p>
+                    <p>Especializado en edición para contenido digital, redes sociales. Me enfoco en crear videos entretenidos que conecten con la audiencia y les presente una grata experiencia.</p>
+                    <p>He utilizado herramientas como Filmora para asegurar resultados de alta calidad. Pero actualmente me enfoco en el uso de Premiere Pro para entregar videos más dinámicos</p>
+                </div>
+                <div class="about-image">🎬</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2>¿Listo para crear algo increíble?</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <h4>Email</h4>
+                        <p>eli.orl.toviluna14@gmail.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <h4>WhatsApp</h4>
+                        <p>+528136894253</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Elías Luna. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
